@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_1</activeVersionIdentifier>
+    <developerName>IDP_Product_Consolidation</developerName>
+    <masterLabel>IDP Product Consolidation</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are given a JSON array of product/material rows extracted from a construction 
+specification document, pulled independently from multiple document chunks. Rows 
+may be duplicated or fragmented — for example, the same set of interchangeable 
+products may appear as separate rows each listing the others as &quot;approvedAlternates.&quot;
+
+Consolidate this into a clean JSON array following these rules:
+
+1. Merge rows that describe the same interchangeable product group (same 
+  application, overlapping alternates) into a single row. Pick one primary 
+  productName/manufacturer (prefer the one explicitly marked as &quot;basis-of-design&quot; 
+  in context, or the first-listed if unclear) and list the others in 
+  approvedAlternates.
+2. Remove exact duplicate rows (identical specSection + productName).
+3. Do not merge rows that have different applications, even if from the same 
+  manufacturer.
+4. Preserve all fields: specSection, application, productName, manufacturer, 
+  approvedAlternates, substitutionAllowed.
+5. If substitutionAllowed conflicts across merged rows, keep &quot;N&quot; if any instance 
+  says N (most restrictive wins).
+6. Sort the output array by specSection ascending.
+
+Output ONLY the resulting JSON array. No markdown code fences, no commentary, 
+no explanation.
+
+Input data:
+{!$Input:Product_Table_Json}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Product_Table_Json</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>Product Table Json</masterLabel>
+            <referenceName>Input:Product_Table_Json</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

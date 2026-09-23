@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <description>For flag override cost for Quote Line Item.</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Warn_Status_Threshold__c</fullName>
+        <label>Warn Status Threshold</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Number_Of_Historical_Records__c</fullName>
+        <externalId>false</externalId>
+        <label>Number Of Historical Records</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Historical_Records_Precedent_Pct_Require__c</fullName>
+        <label>Historical Records Precedent % Required</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <label>Flag Override Cost Settings</label>
+    <visibility>Public</visibility>
+</CustomObject>

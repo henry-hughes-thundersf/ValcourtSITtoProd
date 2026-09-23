@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <compactLayouts>
+        <fullName>RCA_WP_Opportunity_Compact_Layout</fullName>
+        <fields>Name</fields>
+        <fields>AccountId</fields>
+        <fields>CloseDate</fields>
+        <fields>Project_Price__c</fields>
+        <fields>OwnerId</fields>
+        <fields>Probability_WP_Percent__c</fields>
+        <fields>RecordTypeId</fields>
+        <label>RCA WP Opportunity Compact Layout</label>
+    </compactLayouts>
+    <fields>
+        <fullName>IDP_Data__c</fullName>
+        <label>IDP Data</label>
+        <length>131072</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IDP_Error_Reason__c</fullName>
+        <label>IDP Error Reason</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IDP_Product__c</fullName>
+        <label>IDP Product</label>
+        <length>131072</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IDP_RFI__c</fullName>
+        <label>IDP_RFI</label>
+        <length>100000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>IDP_Status__c</fullName>
+        <label>IDP Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Not Started</fullName>
+                    <default>false</default>
+                    <label>Not Started</label>
+                </value>
+                <value>
+                    <fullName>In Progress</fullName>
+                    <default>false</default>
+                    <label>In Progress</label>
+                </value>
+                <value>
+                    <fullName>Completed</fullName>
+                    <default>false</default>
+                    <label>Completed</label>
+                </value>
+                <value>
+                    <fullName>Failed</fullName>
+                    <default>false</default>
+                    <label>Failed</label>
+                </value>
+                <value>
+                    <fullName>Manual Validation Required</fullName>
+                    <default>false</default>
+                    <label>Manual Validation Required</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>IDP_Summary__c</fullName>
+        <label>IDP Summary</label>
+        <length>131072</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Subcontractor_Price_Flag__c</fullName>
+        <defaultValue>false</defaultValue>
+        <label>Subcontractor Price Flag</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Subcontractor_Price_Flag_Explanation__c</fullName>
+        <label>Subcontractor Price Flag Explanation</label>
+        <length>131072</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Html</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <recordTypes>
+        <fullName>RCA_Valcourt_Waterproofing</fullName>
+        <active>true</active>
+        <businessProcess>Valcourt Sales Process Waterproofing</businessProcess>
+        <compactLayoutAssignment>RCA_WP_Opportunity_Compact_Layout</compactLayoutAssignment>
+        <label>RCA Valcourt Waterproofing</label>
+        <picklistValues>
+            <picklist>ForecastCategoryName</picklist>
+            <values>
+                <fullName>Best Case</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Commit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Omitted</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pipeline</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>IDP_Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Failed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Manual Validation Required</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LeadSource</picklist>
+            <values>
+                <fullName>Amendment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change Order</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cold Dial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Convex</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Current Relationship</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Mail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email Marketing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Google Ads</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inbound Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lunch Learn %28Client Presentation%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Networking Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>OneSource</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Outbound Prospecting</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PX Upsell</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid Social</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ProXpress Lead Form</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Purchased List</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral - Attorney</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral - Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral - Community Manager</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral - Construction Manager</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral - Engineer Consultant</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral - External</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Trade Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Walkin</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Webinar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Website</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>ZoomInfo</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Amendment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Annual Inspection</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BID</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change Order</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Change Over</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Courtesy Bid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Management Change</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Business</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Call - Change Over</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Call - Net New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>On Call - Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>One Time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>One Time - Change Over</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>One Time - Net New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>One Time - Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>One Time%2FProject</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Proposal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Restoration</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rolling Volume</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rolling Volume - Change Over</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rolling Volume - Net New</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rolling Volume - Renewal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Safety Systems</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Waterproofing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Window Cleaning</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+</CustomObject>

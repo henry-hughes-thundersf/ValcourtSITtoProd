@@ -1,0 +1,50 @@
+<apex:page controller="GenerateIdpRfiPdf"
+           renderAs="pdf"
+           applyHtmlTag="false"
+           applyBodyTag="false"
+           showHeader="false"
+           sidebar="false"
+           standardStylesheets="false"
+           cache="false">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>IDP RFI Intake Summary</title>
+<style type="text/css">
+    @page {
+        size: A4 portrait;
+        margin: 0.6in 0.5in 0.7in 0.5in;
+        @bottom-center {
+            content: "Page " counter(page) " of " counter(pages);
+            font-family: Arial, sans-serif;
+            font-size: 8pt;
+            color: #888888;
+        }
+    }
+    body  { font-family: Arial, Helvetica, sans-serif; font-size: 9pt;
+            color: #1c1c1c; }
+    .hdr  { border-bottom: 2pt solid #14324f; padding-bottom: 5pt;
+            margin-bottom: 10pt; }
+    h1    { font-size: 15pt; color: #14324f; margin: 0 0 2pt 0; }
+    .hdr p{ margin: 0; font-size: 10pt; font-weight: bold; }
+
+    table.kv { width: 100%; border-collapse: collapse; margin-bottom: 10pt; }
+    table.kv td { border: 0.5pt solid #b8c4ce; padding: 3pt 5pt;
+                  vertical-align: top; }
+
+    tr.sec td { background-color: #14324f; color: #ffffff;
+                font-weight: bold; font-size: 9.5pt; }
+    tr.sub td { background-color: #dfe6ec; font-weight: bold; }
+    td.lbl    { width: 36%; color: #33475b; }
+
+    .empty { color: #8a8a8a; font-style: italic; }
+</style>
+</head>
+<body>
+    <div class="hdr">
+        <h1>IDP RFI Intake Summary</h1>
+        <p><apex:outputText value="{!recordName}"/></p>
+    </div>
+    <apex:outputText value="{!bodyHtml}" escape="false"/>
+</body>
+</html>
+</apex:page>

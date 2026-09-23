@@ -1,0 +1,1016 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_11</activeVersionIdentifier>
+    <developerName>Sub_Contractor_Pricing</developerName>
+    <masterLabel>Sub Contractor Pricing</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are an expert data auditing and reconciliation. Your task is to compare an input JSON string containing subcontractor product pricing against the reference data generated from a prompt template flow result. 
+
+### INSTRUCTIONS:
+I want you to compare an input JSON string to an prompt template flow result. I want to flag the field &apos;Subcontractor_Price_Flag__c&apos; if one of the unit price from the JSON is 50% lower or 50% higher from the matched product listed from the prompt template flow result. Also I want you to list all the products from the JSON that is being flagged and put it in the &apos;Subcontractor_Price_Flag_Explanation__c&apos; and provide an explanation why this products are being flagged.
+
+### ADDITIONAL CONTEXT:
+If the cost value of the subcontractors is more than 50% of the total cost, they typically lose that work
+If the contracting. company is ABC. Engineering Firm, we have a 90% loss rate with this company also flag this.
+If the subcontractor pricing is less than 150 dollars this is too cheap flag this as well
+
+
+### 1. Inputs:
+JSON Data: {!$Input:JSON_Data}
+Related Products: {!$Flow:Get_Related_Product.Prompt}
+
+### 2. Output:
+Generate a JSON Response
+
+Sample Output:
+[
+{ &quot;Subcontractor_Price_Flag__c&quot;: boolean,
+&quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;string&quot; }
+]
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>JSON_Data</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON Data</masterLabel>
+            <referenceName>Input:JSON_Data</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>Opportunity_Record</apiName>
+            <definition>SOBJECT://Opportunity</definition>
+            <masterLabel>Opportunity Record</masterLabel>
+            <referenceName>Input:Opportunity_Record</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>JSON</responseFormat>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Get_Related_Product</definition>
+            <label>Get Related Product</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>false</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:recordId}</valueExpression>
+            </parameters>
+            <referenceName>Flow:Get_Related_Product</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data auditing and reconciliation. Your task is to compare a two prompt flow responses, the Related Products containing subcontractor product pricing against the reference data generated from the Product Prices. 
+
+### INSTRUCTIONS:
+I want you to compare the Related Products to Product Prices prompt template flow results. I want to flag the field &apos;Subcontractor_Price_Flag__c&apos; if one of the unit price from the Related Products is 50% lower or 50% higher from the matched product listed from the prompt template flow result. Also I want you to list all the products from the Related Products that is being flagged and put it in the &apos;Subcontractor_Price_Flag_Explanation__c&apos; and provide an explanation why this products are being flagged.
+
+### ADDITIONAL CONTEXT:
+If the cost value of the subcontractors is more than 50% of the total cost, they typically lose that work
+If the contracting. company is ABC. Engineering Firm, we have a 90% loss rate with this company also flag this.
+If the subcontractor pricing is less than 150 dollars this is too cheap flag this as well
+
+
+### 1. Inputs:
+Related Products: {!$Flow:Get_Related_Product.Prompt} 
+Product Prices: {!$Flow:Get_Product_Prices.Prompt}
+
+### 2. Output:
+Generate a JSON Response
+
+Sample Output:
+[
+{ &quot;Subcontractor_Price_Flag__c&quot;: boolean,
+&quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;string&quot; }
+]
+
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>JSON</responseFormat>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Get_Related_Product</definition>
+            <label>Get Related Product</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>false</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:recordId}</valueExpression>
+            </parameters>
+            <referenceName>Flow:Get_Related_Product</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>flow://Get_Product_Prices</definition>
+            <label>Get Product Prices</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:recordId}</valueExpression>
+            </parameters>
+            <referenceName>Flow:Get_Product_Prices</referenceName>
+        </templateDataProviders>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured HTML snippet.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (0.0 to 1.0):
+- 1.0: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 0.8 - 0.9: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 0.5 - 0.7: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 0.5: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid HTML.
+- Do not include markdown code blocks (like ```html or ```) or any conversational text. Start directly with the first HTML tag and end with the last HTML tag.
+- Group the items under their respective &quot;Group Name&quot; headers using `&lt;h3&gt;`.
+- Under each header, provide an unordered bulleted list (`&lt;ul&gt;` and `&lt;li&gt;`) containing the item.
+- **CRITICAL:** For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header, but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+- Do not include the product with null value.
+
+Match this exact layout output format:
+
+&lt;h3&gt;Valcourt Core Self-Perform Scope&lt;/h3&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; - Confidence Score: [Score]&lt;/li&gt;
+ &lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; - Confidence Score: [Score]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Branch-Dependent / Conditional Scope&lt;/h3&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; - Confidence Score: [Score] (Flagged for Review)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;High-Risk / Out of Scope&lt;/h3&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; - Confidence Score: [Score]&lt;/li&gt;
+&lt;/ul&gt;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Get_Product_Prices</definition>
+            <label>Get Product Prices</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>false</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:recordId}</valueExpression>
+            </parameters>
+            <referenceName>Flow:Get_Product_Prices</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>flow://Get_Related_Product</definition>
+            <label>Get Related Product</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>false</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:recordId}</valueExpression>
+            </parameters>
+            <referenceName>Flow:Get_Related_Product</referenceName>
+        </templateDataProviders>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_3</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (0.0 to 1.0):
+- 1.0: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 0.8 - 0.9: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 0.5 - 0.7: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 0.5: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String containing the categorized list]&quot;
+}]
+
+**Field Rules:**
+1. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+2. **`Subcontractor_Price_Flag_Explanation__c`**: Group the items under their respective &quot;Group Name&quot; headers using `&lt;h3&gt;`. Under each header, provide an unordered bulleted list (`&lt;ul&gt;` and `&lt;li&gt;`) containing the item.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header, but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h3&gt;Valcourt Core Self-Perform Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; - Confidence Score: [Score]&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; - Confidence Score: [Score] (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; - Confidence Score: [Score]&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>JSON</responseFormat>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>flow://Get_Product_Prices</definition>
+            <label>Get Product Prices</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>false</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:recordId}</valueExpression>
+            </parameters>
+            <referenceName>Flow:Get_Product_Prices</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>flow://Get_Related_Product</definition>
+            <label>Get Related Product</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>false</isRequired>
+                <parameterName>recordId</parameterName>
+                <valueExpression>{!$Input:recordId}</valueExpression>
+            </parameters>
+            <referenceName>Flow:Get_Related_Product</referenceName>
+        </templateDataProviders>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_4</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (Output as Percentage, e.g., 100%, 85%):
+- 100%: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 80% - 90%: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 50% - 70%: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 50%: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String containing the summary analysis and categorized list]&quot;
+}]
+
+**Field Rules:**
+1. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+2. **`Subcontractor_Price_Flag_Explanation__c`**: This field must contain an HTML string consisting of two main components: a high-level **Summary Analysis** followed by the **Categorized Breakdown**.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- Output the confidence score as a percentage (e.g., 100%, 85%). Do not use decimals.
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header, but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h2&gt;Summary Analysis&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Subcontracting Scope:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades on the project most certainly require subcontracting based on the High-Risk category. If none, state &apos;No definitive subcontracting scope detected.&apos;]&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Human Review Required:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades require branch/estimator verification based on the Branch-Dependent category or low confidence scores. If none, state &apos;No items require immediate human review.&apos;]&lt;/p&gt;&lt;h3&gt;Valcourt Core Self-Perform Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt;(Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt;(Mapped item) - Confidence Score: [Score]% (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt;(Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_5</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (Output as Percentage, e.g., 100%, 85%):
+- 100%: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 80% - 90%: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 50% - 70%: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 50%: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String containing the summary analysis and categorized list]&quot;
+}]
+
+**Field Rules:**
+1. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+2. **`Subcontractor_Price_Flag_Explanation__c`**: This field must contain an HTML string consisting of two main components: a high-level **Summary Analysis** followed by the **Categorized Breakdown**.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- Output the confidence score as a percentage (e.g., 100%, 85%). Do not use decimals.
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header, but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h2&gt;Summary Analysis&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Subcontracting Scope:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades on the project most certainly require subcontracting based on the High-Risk category. If none, state &apos;No definitive subcontracting scope detected.&apos;]&lt;/p&gt;&lt;br&gt;&lt;p&gt;&lt;strong&gt;Human Review Required:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades require branch/estimator verification based on the Branch-Dependent category or low confidence scores. If none, state &apos;No items require immediate human review.&apos;]&lt;/p&gt;&lt;br&gt;&lt;h3&gt;Valcourt Core Self-Perform Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]% (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_6</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope 
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (Output as Percentage, e.g., 100%, 85%):
+- 100%: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 80% - 90%: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 50% - 70%: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 50%: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String containing the summary analysis and categorized list]&quot;
+}]
+
+**Field Rules:**
+1. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+2. **`Subcontractor_Price_Flag_Explanation__c`**: This field must contain an HTML string consisting of two main components: a high-level **Summary Analysis** followed by the **Categorized Breakdown**.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- Output the confidence score as a percentage (e.g., 100%, 85%). Do not use decimals.
+- **Category Counts**: You must dynamically count the total number of items categorized into each group and append that total to the category&apos;s `&lt;h3&gt;` header trailing a hyphen (e.g., `&lt;h3&gt;Category Name - [Count]&lt;/h3&gt;`). If a group has 0 items, the count must display as `0`. **Do not include or count any products where the `productName` is null or missing.**
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header with its count (`- 0`), but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h2&gt;Summary Analysis&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Subcontracting Scope:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades on the project most certainly require subcontracting based on the High-Risk category. If none, state &apos;No definitive subcontracting scope detected.&apos;]&lt;/p&gt;&lt;br&gt;&lt;p&gt;&lt;strong&gt;Human Review Required:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades require branch/estimator verification based on the Branch-Dependent category or low confidence scores. If none, state &apos;No items require immediate human review.&apos;]&lt;/p&gt;&lt;br&gt;&lt;h3&gt;Valcourt Core Self-Perform Scope (Internal) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope (Onshore) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]% (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope (Sub Contractor) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_7</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope 
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (Output as Percentage, e.g., 100%, 85%):
+- 100%: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 80% - 90%: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 50% - 70%: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 50%: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String containing the summary analysis and categorized list]&quot;
+}]
+
+**Field Rules:**
+1. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+2. **`Subcontractor_Price_Flag_Explanation__c`**: This field must contain an HTML string consisting of two main components: a high-level **Summary Analysis** followed by the **Categorized Breakdown**.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- Output the confidence score as a percentage (e.g., 100%, 85%). Do not use decimals.
+- **Category Counts**: You must dynamically count the total number of items categorized into each group and append that total to the category&apos;s `&lt;h3&gt;` header trailing a hyphen (e.g., `&lt;h3&gt;Category Name - [Count]&lt;/h3&gt;`). If a group has 0 items, the count must display as `0`. **Do not include or count any products where the `productName` is null or missing.**
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header with its count (`- 0`), but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h2&gt;Summary Analysis&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Subcontracting Scope:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades on the project most certainly require subcontracting based on the High-Risk category. If none, state &apos;No definitive subcontracting scope detected.&apos;]&lt;/p&gt;&lt;br&gt;&lt;p&gt;&lt;strong&gt;Human Review Required:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades require branch/estimator verification based on the Branch-Dependent category or low confidence scores. If none, state &apos;No items require immediate human review.&apos;]&lt;/p&gt;&lt;br&gt;&lt;h3&gt;Valcourt Core Self-Perform Scope (Internal) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope (Onshore) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]% (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope (Sub Contractor) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_8</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope 
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (Output as Percentage, e.g., 100%, 85%):
+- 100%: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 80% - 90%: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 50% - 70%: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 50%: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;IDP_Error_Reason__c&quot;: &quot;[String or Null]&quot;,
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String containing the summary analysis and categorized list]&quot;
+}]
+
+**Field Rules:**
+1. **`IDP_Error_Reason__c`**: Set to `&quot;No product was able to process&quot;` if NO products were mapped/processed into any of the three categories (or if the input array is empty, contains only null values, or unmapped items). Otherwise, set this field to `null` (or empty string `&quot;&quot;`). 
+2. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+3. **`Subcontractor_Price_Flag_Explanation__c`**: This field must contain an HTML string consisting of two main components: a high-level **Summary Analysis** followed by the **Categorized Breakdown**.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- Output the confidence score as a percentage (e.g., 100%, 85%). Do not use decimals.
+- **Category Counts**: You must dynamically count the total number of items categorized into each group and append that total to the category&apos;s `&lt;h3&gt;` header trailing a hyphen (e.g., `&lt;h3&gt;Category Name - [Count]&lt;/h3&gt;`). If a group has 0 items, the count must display as `0`. **Do not include or count any products where the `productName` is null or missing.**
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header with its count (`- 0`), but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h2&gt;Summary Analysis&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Subcontracting Scope:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades on the project most certainly require subcontracting based on the High-Risk category. If none, state &apos;No definitive subcontracting scope detected.&apos;]&lt;/p&gt;&lt;br&gt;&lt;p&gt;&lt;strong&gt;Human Review Required:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades require branch/estimator verification based on the Branch-Dependent category or low confidence scores. If none, state &apos;No items require immediate human review.&apos;]&lt;/p&gt;&lt;br&gt;&lt;h3&gt;Valcourt Core Self-Perform Scope (Internal) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope (Onshore) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]% (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope (Sub Contractor) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_9</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope 
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (Output as Percentage, e.g., 100%, 85%):
+- 100%: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 80% - 90%: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 50% - 70%: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 50%: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;IDP_Error_Reason__c&quot;: &quot;[String or Null]&quot;,
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String or Empty String]&quot;
+}]
+
+**Field Rules:**
+1. **`IDP_Error_Reason__c`**: Set to `&quot;No products were able to be processed&quot;` if NO products were mapped/processed into any of the three categories (or if the input array is empty, contains only null values, or unmapped items). Otherwise, set this field to `null` (or empty string `&quot;&quot;`). 
+2. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+3. **`Subcontractor_Price_Flag_Explanation__c`**: 
+       - If no products were able to be processed (i.e., `IDP_Error_Reason__c` is populated), set this field to an empty string `&quot;&quot;`. 
+       - Otherwise, populate this field with an HTML string consisting of two main components: a high-level **Summary Analysis** followed by the **Categorized Breakdown**.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- Output the confidence score as a percentage (e.g., 100%, 85%). Do not use decimals.
+- **Category Counts**: You must dynamically count the total number of items categorized into each group and append that total to the category&apos;s `&lt;h3&gt;` header trailing a hyphen (e.g., `&lt;h3&gt;Category Name - [Count]&lt;/h3&gt;`). If a group has 0 items, the count must display as `0`. **Do not include or count any products where the `productName` is null or missing.**
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header with its count (`- 0`), but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h2&gt;Summary Analysis&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Subcontracting Scope:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades on the project most certainly require subcontracting based on the High-Risk category. If none, state &apos;No definitive subcontracting scope detected.&apos;]&lt;/p&gt;&lt;br&gt;&lt;p&gt;&lt;strong&gt;Human Review Required:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades require branch/estimator verification based on the Branch-Dependent category or low confidence scores. If none, state &apos;No items require immediate human review.&apos;]&lt;/p&gt;&lt;br&gt;&lt;h3&gt;Valcourt Core Self-Perform Scope (Internal) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope (Onshore) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]% (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope (Sub Contractor) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_10</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are an expert data classification AI specialized in commercial construction and restoration scopes. Your task is to analyze an incoming JSON array of product or service descriptions, categorize them based on a strict taxonomy, and output the final results ONLY as a clean, structured JSON object.
+
+### Scope Classification Framework &amp; Taxonomy Definitions
+
+Analyze each input item and classify it into one of the following three groups:
+
+1. Valcourt Core Self-Perform Scope 
+Assign this group if the item matches any of the following internal scope indicators (match aggressively on singular/plural forms and variations):
+- Waterproofing / Sealants / Caulking: waterproofing, sealant, caulking, joint sealant, traffic coating, deck coating, elastomeric, polyurethane sealant, silicone sealant, fluid-applied membrane, sheet membrane, below-grade waterproofing.
+- Expansion Joints: expansion joint, seismic joint, movement joint, building joint, pre-manufactured joint.
+- Grout Injection: grout injection, crack injection, epoxy injection, urethane injection, pressure grouting, structural crack repair.
+- Coatings: coating, protective coating, epoxy coating, urethane coating, anti-carbonation coating.
+- Masonry Repair: masonry repair, repointing / tuckpointing, mortar replacement, CMU repair, brick repair, stone repair.
+- Concrete Repair / Structural: concrete repair, concrete patching, spall repair, structural concrete repair, delamination repair, carbon fiber wrap (CFRP), shotcrete, form &amp; pour.
+
+2. Branch-Dependent / Conditional Scope
+Assign this group if the item matches any conditional trades requiring estimator verification:
+- Windows: window replacement, glazing replacement, storefront, curtain wall, window retrofit.
+- Roofing: roof repair, roof replacement, membrane roofing, flashing repair, roof coating.
+- Post-Tension (limited branches): post tension, PT cable, tendon repair, cable stressing, stressing operations.
+
+3. High-Risk / Out of Scope (Big Ticket Triggers)
+Assign this group if the item represents a specialty/high-risk trade typically requiring subcontractors, or if it does not fit into any of the self-perform or conditional categories above. Flag and surface any items matching these specific subcontractor-likely keywords prominently:
+- Steel / Welding: welding, structural steel repair, steel reinforcement, field welding, metal fabrication.
+- Access / Means &amp; Methods: scaffolding, swing stage, bosun’s chair, man lift, building access system, temporary access.
+- Roofing (large scope): full roof replacement, tear-off, re-roof, roof system replacement.
+- Window Systems (large scope): curtain wall replacement, façade glazing system, bulk window replacement.
+- Post‑Tension (major repairs): PT cable replacement, tendon replacement, full stressing program.
+- Engineering / Design: structural engineer, engineering services, stamped drawings, PE review, load calculations, shoring design.
+- Temporary Support: shoring, reshoring, temporary support, needle beam.
+- Interior Finishes: drywall replacement, ceiling replacement, flooring replacement, paint restoration, interior finish repair.
+- Site / Specialty: line striping, pavement markings, traffic control.
+
+### Scoring Logic for Confidence Score (Output as Percentage, e.g., 100%, 85%):
+- 100%: Exact keyword match from the taxonomy list (ignore case-sensitivity, capitalization, and minor pluralization variations like &quot;sealant&quot; vs &quot;sealants&quot;).
+- 80% - 90%: Highly synonymous, clear derivative, or action-based phrasing of a listed keyword (e.g., &quot;caulk application&quot;, &quot;injecting epoxy into cracks&quot;).
+- 50% - 70%: Partial match, ambiguous context, or a broader construction term that implies the scope but isn&apos;t explicitly defined.
+- Below 50%: Weak connection, unrelated trade, or entirely missing context.
+
+### Expected Output Format Constraints:
+- Your entire response must be valid JSON. 
+- Do not include markdown code blocks (like ```json or ```) or any conversational text. Start directly with the opening curly brace `{` and end with the closing curly brace `}`.
+- All HTML content inside JSON string values must have its quotes properly escaped (e.g., use `\&quot;` or use single quotes `&apos;` for HTML attributes) to maintain valid JSON structure.
+- Do not include products with null values.
+
+### JSON Schema Structure:
+Your output must strictly follow this JSON object format:
+[{
+ &quot;IDP_Error_Reason__c&quot;: &quot;[String or Null]&quot;,
+ &quot;Subcontractor_Price_Flag__c&quot;: [boolean],
+ &quot;Subcontractor_Price_Flag_Explanation__c&quot;: &quot;[HTML String or Empty String]&quot;
+}]
+
+**Field Rules:**
+1. **`IDP_Error_Reason__c`**: Set to `&quot;No products were able to be processed&quot;` if NO products were mapped/processed into any of the three categories (or if the input array is empty, contains only null values, or unmapped items). Otherwise, set this field to `null` (or empty string `&quot;&quot;`). 
+2. **`Subcontractor_Price_Flag__c`**: Set to `true` if **at least one** item from the input JSON is categorized under &quot;High-Risk / Out of Scope&quot;. Otherwise, set to `false`.
+3. **`Subcontractor_Price_Flag_Explanation__c`**: 
+       - If no products were able to be processed (i.e., `IDP_Error_Reason__c` is populated), set this field to an empty string `&quot;&quot;`. 
+       - Otherwise, populate this field with an HTML string consisting of two main components: a high-level **Summary Analysis** followed by the **Categorized Breakdown**.
+
+**HTML Layout within the Explanation String:**
+- For the item name, you must output the exact string value from the `productName` key provided in the input JSON. Do not alter, shorten, or paraphrase it.
+- Output the confidence score as a percentage (e.g., 100%, 85%). Do not use decimals.
+- **Category Counts**: You must dynamically count the total number of items categorized into each group and append that total to the category&apos;s `&lt;h3&gt;` header trailing a hyphen (e.g., `&lt;h3&gt;Category Name - [Count]&lt;/h3&gt;`). If a group has 0 items, the count must display as `0`. **Do not include or count any products where the `productName` is null or missing.**
+- If a product falls under &quot;Branch-Dependent / Conditional Scope&quot;, append a &quot; (Flagged for Review)&quot; notice next to it.
+- If a group has NO matching products from the input JSON, still include the `&lt;h3&gt;` header with its count (`- 0`), but output `&lt;ul&gt;&lt;li&gt;No items detected&lt;/li&gt;&lt;/ul&gt;` underneath it.
+
+Match this exact format inside the `Subcontractor_Price_Flag_Explanation__c` value:
+&quot;&lt;h2&gt;Summary Analysis&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Subcontracting Scope:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades on the project most certainly require subcontracting based on the High-Risk category. If none, state &apos;No definitive subcontracting scope detected.&apos;]&lt;/p&gt;&lt;br&gt;&lt;p&gt;&lt;strong&gt;Human Review Required:&lt;/strong&gt; [Provide a brief, concise sentence detailing which items or trades require branch/estimator verification based on the Branch-Dependent category or low confidence scores. If none, state &apos;No items require immediate human review.&apos;]&lt;/p&gt;&lt;br&gt;&lt;h3&gt;Valcourt Core Self-Perform Scope (Internal) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item from the Scope Classification Framework &amp; Taxonomy Definitions) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;Branch-Dependent / Conditional Scope (Onshore) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item from the Scope Classification Framework &amp; Taxonomy Definitions) - Confidence Score: [Score]% (Flagged for Review)&lt;/li&gt;&lt;/ul&gt;&lt;h3&gt;High-Risk / Out of Scope (Sub Contractor) - [Count]&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;[Exact productName value from JSON]&lt;/strong&gt; (Mapped item from the Scope Classification Framework &amp; Taxonomy Definitions) - Confidence Score: [Score]%&lt;/li&gt;&lt;/ul&gt;&quot;
+
+### Input JSON to Categorize:
+{!$Input:JSON_String}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>recordId</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>recordId</masterLabel>
+            <referenceName>Input:recordId</referenceName>
+            <required>true</required>
+        </inputs>
+        <inputs>
+            <apiName>JSON_String</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>JSON String</masterLabel>
+            <referenceName>Input:JSON_String</referenceName>
+            <required>false</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <responseFormat>HTML</responseFormat>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_11</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

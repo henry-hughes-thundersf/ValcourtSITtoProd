@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_1</activeVersionIdentifier>
+    <developerName>RFI_Prompt</developerName>
+    <masterLabel>RFI Prompt</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are a precise data extractor.
+
+Your task is to extract ONLY the nested &quot;intake_summary&quot; string from the provided JSON, deserialize the inner JSON, and format the intake contents into a clean, human-readable summary.
+
+### CRITICAL RULES:
+1. Output ONLY the information contained inside &quot;intake_summary&quot;.
+2. DO NOT include any document metadata, document names, chunk IDs, page ranges, or status fields.
+3. Ignore chunks where &quot;intake_summary&quot; value is null.
+4. Omit any key where the value is &quot;Not specified&quot;.
+
+### RAW INPUT DATA:
+{!$Input:RFI}
+
+### DESIRED OUTPUT FORMAT:
+
+## 1. BID INTAKE &amp; CONTRACTUAL / PURSUIT CONDITIONS
+- **GC / Procurement Type / Bid Structure:** [Extract]
+- **Key Dates:**
+ - **Pre-Bid Meeting:** [Extract]
+ - **RFI Cutoff:** [Extract]
+ - **Bid Date:** [Extract]
+- **Bid Environment:** [Extract]
+- **Scope Packaging:** [Extract]
+- **Contractual Risks:**
+ - **Bonds:** [Extract]
+ - **Insurance:** [Extract]
+ - **Warranty:** [Extract]
+ - **Testing Requirements:** [Extract]
+ - **Permit Rules:** [Extract]
+
+## 2. BASE SCOPE (BROKEN DOWN BY TRADE)
+- **Masonry / Façade:** [Extract]
+- **Sealants / Joints:** [Extract]
+- **Waterproofing:** [Extract]
+- **Concrete / Structural:**
+ - **Partial-Depth Repair:** [Extract]
+ - **Full-Depth Repair:** [Extract]
+ - **Balcony Slab Edge Repair:** [Extract]
+ - **Vertical Repair:** [Extract]
+ - **Rout-and-Seal Crack Repair:** [Extract]
+ - **Installation of Galvanic Anodes:** [Extract]
+- **Other Identified Trades:** [Extract]
+
+## 3. UNIT PRICES / ALLOWANCES
+- **Unit Pricing Structures:** [Extract]
+- **Allowances:** [Extract]
+- **Variable Scope Items:** [Extract]
+- **Owner-Imposed Pricing Conditions:** [Extract]
+
+## 4. SCHEDULE &amp; PRODUCTIVITY DRIVERS
+- **Schedule Requirements:** [Extract]
+- **Phasing Requirements:** [Extract]
+- **Occupancy Constraints:** [Extract]
+- **Multi-Building Coordination:** [Extract]
+
+## 5. ACCESS &amp; GENERAL CONDITIONS
+- **Site Constraints:** [Extract]
+- **Access Methods:** [Extract]
+- **Staging Limitations:** [Extract]
+- **Protection Requirements:** [Extract]
+
+## 6. MATERIAL / SPEC TRIGGERS
+- **Masonry / Façade:** [Extract]
+- **Sealants:** [Extract]
+- **Waterproofing:** [Extract]
+
+## 7. WARRANTIES
+- **Contractor Warranty Requirements:** [Extract]
+- **Manufacturer/System Warranties:** [Extract]
+
+## 8. KEY ESTIMATING ASSUMPTIONS
+- **Field / Scope Assumptions:** [Extract]
+
+## 9. ESTIMATOR POSITIONING
+- **Bid Timing Position:** [Extract]
+- **Competitive Conditions:** [Extract]
+- **Scope Packaging Implications:** [Extract]
+
+Execute the instructions and output ONLY the formatted intake summary.
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>RFI</apiName>
+            <definition>primitive://String</definition>
+            <masterLabel>RFI</masterLabel>
+            <referenceName>Input:RFI</referenceName>
+            <required>false</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultVertexAIGeminiPro25</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>CYHD6VEqXcMDuYHMJdrh92DHFG01iTEHn9ApMncKwNU=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>
